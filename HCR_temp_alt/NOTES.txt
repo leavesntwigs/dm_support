@@ -1,0 +1,64 @@
+
+
+To make the temperature plots,
+grab the Xml data from each .nc file.  The Xml information contains the temperature and altitude information.
+
+(ams_41_shortcourse) eol-amalfi:20190822 brenda$ RadxPrint -f cfrad.20190822_140000.100_to_20190822_140500.000_HCR_otrec.nc | awk '/HcrStatus/,/<\/HcrStatus/'
+
+
+
+    <CmigitsDeltaAltitude>13177.2</CmigitsDeltaAltitude>
+
+
+(ams_41_shortcourse) eol-amalfi:20190822 brenda$ RadxPrint -f cfrad.20190822_140000.100_to_20190822_140500.000_HCR_otrec.nc | awk '/HcrStatus/,/<\/HcrStatus/'  | grep -i -e "temp" -e CmigitsDeltaAltitude | \  
+awk -F '[<>]' -f extract_temp_alt.awk
+>> ~/for_Jonathan_HCR_temp/YYYYMMDD.txt
+
+I think I want to use an awk script to generate a file:
+name: YYYYMMDD
+header: time altitude PentekFpgaTemp ...  #  each header is the Xml label
+140000  13177.2  69   
+
+
+(base) eol-amalfi:for_Jonathan_HCR_temp brenda$ grep -i -e "temp" -e CmigitsDeltaAltitude  temp_alt.txt 
+    <XmitterTempFault>false</XmitterTempFault>
+    <XmitterTemp>33</XmitterTemp>
+    <XmitterTempFaultCount>0</XmitterTempFaultCount>
+    <XmitterTempFaultTime>1969-12-31T23:59:59</XmitterTempFaultTime>
+    <PloTemp>38.7639</PloTemp>
+    <EikTemp>28.1155</EikTemp>
+    <VLnaTemp>34.6448</VLnaTemp>
+    <HLnaTemp>34.6838</HLnaTemp>
+    <PolarizationSwitchTemp>26.5897</PolarizationSwitchTemp>
+    <RfDetectorTemp>23.8179</RfDetectorTemp>
+    <NoiseSourceTemp>23.6528</NoiseSourceTemp>
+    <Ps28VTemp>52.6385</Ps28VTemp>
+    <RdsInDuctTemp>44.3542</RdsInDuctTemp>
+    <RotationMotorTemp>14.7819</RotationMotorTemp>
+    <TiltMotorTemp>12.9071</TiltMotorTemp>
+    <InsTemp>2.44625</InsTemp>
+    <TailconeTemp>2.37623</TailconeTemp>
+    <PentekFpgaTemp>69</PentekFpgaTemp>
+    <PentekBoardTemp>60</PentekBoardTemp>
+    <CmigitsDeltaAltitude>13177.2</CmigitsDeltaAltitude>
+
+
+make_header.awk
+
+
+extract_temp_alt.awk
+awk -F '[<>]' '/TailconeTemp/{print $2}'
+
+csh script?
+
+for each FILE in .
+   RadxPrint -f $FILE | awk '/HcrStatus/,/<\/HcrStatus/'  >> ~/for_Jonathan_HCR_temp/YYYYMMDD.txt
+
+
+ or use python ...
+import xml.etree.ElementTree as ET
+tree = ET.parse('country_data.xml')
+root = tree.getroot()
+
+Then it would be RadxPrint | awk > YYYYMMDD_HHMMSS.xml
+Then Python script to read each xml file, parse it, store data, then plot?
