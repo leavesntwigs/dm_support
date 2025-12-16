@@ -90,7 +90,11 @@ axes[3].legend(
 axes[3].set_ylabel('Temp[C]', fontsize=8)
 
 YMD_formatted = YYYYMMDD[:4] + '-' + YYYYMMDD[4:6] + '-' + YYYYMMDD[6:]
-yfields = ['InsTemp','TailconeTemp']
+if 'InsTemp' in temp_data.index:
+   yfields = ['InsTemp']
+else:
+   yfields = []
+yfields += ['TailconeTemp']
 temp_data.plot(ax=axes[4], x='time', 
    y=yfields,  
    ylabel='Temp [C]',
