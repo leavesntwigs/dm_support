@@ -62,3 +62,32 @@ root = tree.getroot()
 
 Then it would be RadxPrint | awk > YYYYMMDD_HHMMSS.xml
 Then Python script to read each xml file, parse it, store data, then plot?
+
+12/15/2025
+move all modifications to ~/git/dm_support/HCR_temp_alt
+
+Plots look good, so run the plot scripts on all these data (sets) files:
+
+OTREC:	2019-09-03
+	"	25
+	"	28
+
+SOCRATES: 2018-02-19
+		" 20
+		" 21
+		" 22
+		" 24
+
+CSET:   2015-08-12
+	"	09
+	"	07
+	"	03
+
+12/16/2025
+
+Steps:
+1. rm temp file YYYYMMDD.txt 
+2. edit runit.sh; change DIR variable
+3. edit temp_alt_plot.py; change csv file & xlabel & campaign name
+4. ./runit.sh
+5. python temp_alt_plot  # generates Figure-YYYYMMDD_campaign.png 

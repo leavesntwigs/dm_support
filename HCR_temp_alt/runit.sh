@@ -1,6 +1,12 @@
 #!/bin/csh
 
-set DIR = '/Users/brenda/data/OTREC/20190822'
+# ---- changes needed here ----
+# remove temp output file YYYYMMDD.txt
+
+set DIR = '/Users/brenda/data/OTREC/20190928'
+
+# ---- end of changes needed -----
+
 
 set FILES=`ls -d $DIR/*`
 set first=1
