@@ -1,8 +1,10 @@
 
 # ----  changes needed here ----
 
-YYYYMMDD = '20190928'
-campaign_name = 'OTREC'
+YYYYMMDD = '20180219'
+campaign_name = 'SOCRATES'
+
+temp_data_path = '/h/eol/brenda/for_Jonathan_HCR_temp/'
 
 # ---- end changes needed ----
 
@@ -11,7 +13,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # temp_data = pd.read_csv('20190822.txt')
-temp_data = pd.read_csv(YYYYMMDD + '.txt')
+temp_data = pd.read_csv(temp_data_path + YYYYMMDD + '.txt')
 temp_data
 
 fig, axes = plt.subplots(nrows=5, ncols=1, 
@@ -112,4 +114,4 @@ plt.suptitle(campaign_name)
 for ax in axes:
    ax.grid(axis='x') # , linestyle='--', alpha=0.6) # Customize linestyle and transparency
 
-plt.savefig(YYYYMMDD + '_' + campaign_name + '.png')
+plt.savefig(temp_data_path + YYYYMMDD + '_' + campaign_name + '.png')
